@@ -5,6 +5,14 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+  neo4j:
+    image: neo4j
+    container_name: neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - $HOME/neo4j/data:/data
 networks:
   budget-network:
     driver: bridge
