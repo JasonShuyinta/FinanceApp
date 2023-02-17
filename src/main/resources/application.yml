@@ -3,15 +3,8 @@ server:
 spring:
   application:
     name: budget-finance
-  datasource:
-    url: jdbc:mysql://localhost:3306/finance_app_db
-    username: user
-    password: password
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
+  neo4j:
+    authentication:
+      username: neo4j
+      password: password
+    uri: bolt://localhost:7689
