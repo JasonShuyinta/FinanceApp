@@ -5,13 +5,11 @@ import com.dotjson.budgetfinance.entity.mapper.UserMapper;
 import com.dotjson.budgetfinance.entity.request.UserRequest;
 import com.dotjson.budgetfinance.entity.response.UserResponse;
 import com.dotjson.budgetfinance.repository.UserRepository;
+import com.dotjson.budgetfinance.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,13 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserMapper userMapper;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    @PostMapping("/test")
-    public ResponseEntity<UserResponse> hello(@RequestBody UserRequest userRequest) {
-        User user = userMapper.userRequestToEntity(userRequest);
-        User response = userRepository.save(user);
-        return ResponseEntity.ok(userMapper.userEntityToResponse(response));
+    @GetMapping
+    public ResponseEntity<UserResponse> getUserById(@RequestParam Long userId) {
+        log.info("START getUSerById");
+        return ResponseEntity.ok(userService.getUserById(userId));
+    }
+
+    @PutMapping
+    public ResponseEntity<UserResponse> updateUser(@RequestBody UserRequest request) {
+        log.info("START updateUser");
+        return ResponseEntity.ok(userService.updateUser(request));
     }
 }

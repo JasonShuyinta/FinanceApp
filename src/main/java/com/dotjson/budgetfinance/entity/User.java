@@ -8,14 +8,12 @@ import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
-import org.springframework.data.neo4j.core.support.UUIDStringGenerator;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -26,18 +24,12 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(UUIDStringGenerator.class)
-    private long id;
-
+    @GeneratedValue
+    private Long id;
     private String firstName;
-
     private String lastName;
-
     private String email;
-
     private String password;
-
-    private Role role;
 
     @Relationship(type = "OWNS")
     public Set<Budget> budgets;
@@ -52,7 +44,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return Collections.emptyList();
     }
 
     @Override

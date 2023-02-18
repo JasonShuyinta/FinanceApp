@@ -1,7 +1,6 @@
 package com.dotjson.budgetfinance.service;
 
 import com.dotjson.budgetfinance.config.JwtService;
-import com.dotjson.budgetfinance.entity.Role;
 import com.dotjson.budgetfinance.entity.User;
 import com.dotjson.budgetfinance.entity.request.AuthenticationRequest;
 import com.dotjson.budgetfinance.entity.request.RegisterRequest;
@@ -28,7 +27,6 @@ public class AuthenticationService {
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
