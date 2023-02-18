@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.support.UUIDStringGenerator;
+
+import java.time.LocalDateTime;
 
 @Builder
 @NoArgsConstructor
@@ -16,10 +19,15 @@ import org.springframework.data.neo4j.core.schema.Node;
 public class Budget {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(UUIDStringGenerator.class)
     private long id;
 
     private double total;
 
+    private double expenses;
+
+    private LocalDateTime creationDate;
+
+    private LocalDateTime endDate;
 
 }
