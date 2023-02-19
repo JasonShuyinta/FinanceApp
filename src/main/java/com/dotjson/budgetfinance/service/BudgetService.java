@@ -100,4 +100,10 @@ public class BudgetService {
         Budget response = budgetRepository.save(budget);
         return budgetMapper.budgetEntityToResponse(response);
     }
+
+    public Boolean deleteBudget(String budgetId) {
+        log.info("START deleteBudget");
+        budgetRepository.deleteById(budgetId);
+        return Boolean.TRUE;
+    }
 }

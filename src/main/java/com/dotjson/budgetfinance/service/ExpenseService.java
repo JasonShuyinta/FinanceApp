@@ -5,6 +5,7 @@ import com.dotjson.budgetfinance.entity.Expense;
 import com.dotjson.budgetfinance.entity.mapper.ExpenseMapper;
 import com.dotjson.budgetfinance.entity.response.ExpenseResponse;
 import com.dotjson.budgetfinance.repository.BudgetRepository;
+import com.dotjson.budgetfinance.repository.ExpenseRepository;
 import com.dotjson.budgetfinance.utils.ElementNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ import static com.dotjson.budgetfinance.utils.Constants.BUDGET_NOT_FOUND_EXCEPTI
 @RequiredArgsConstructor
 public class ExpenseService {
 
+    private final ExpenseRepository expenseRepository;
     private final BudgetRepository budgetRepository;
     private final ExpenseMapper expenseMapper;
 
@@ -39,5 +41,11 @@ public class ExpenseService {
             response.add(expenseMapper.expenseEntityToResponse(expense));
         }
         return response;
+    }
+
+    public Boolean delete(String expenseId) {
+        log.info("START delete");
+        expenseRepository.deleteById(expenseId);
+        return Boolean.TRUE;
     }
 }

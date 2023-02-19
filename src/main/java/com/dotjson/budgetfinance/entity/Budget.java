@@ -21,6 +21,7 @@ public class Budget {
 
     @Id
     private String id;
+    private String title;
     private double total;
     private LocalDateTime creationDate;
     private LocalDateTime endDate;

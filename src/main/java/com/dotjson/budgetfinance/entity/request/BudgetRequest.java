@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class BudgetRequest {
 
     private String id;
+    private String title;
     private double total;
     private String creationDate;
     private String endDate;

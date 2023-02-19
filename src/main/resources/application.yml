@@ -7,4 +7,5 @@ spring:
     authentication:
       username: neo4j
       password: password
-    uri: bolt://localhost:7689
+    uri: bolt://host.docker.internal:7687
+    #uri: bolt://localhost:7689

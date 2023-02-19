@@ -54,5 +54,11 @@ public class BudgetController {
         return ResponseEntity.ok(budgetService.updateBudget(budgetRequest));
     }
 
+    @DeleteMapping
+    public ResponseEntity<Boolean> deleteBudget(@RequestParam String budgetId) {
+        log.info("STARTED deleteBudget");
+        return ResponseEntity.ok(budgetService.deleteBudget(budgetId));
+    }
+
 
 }
