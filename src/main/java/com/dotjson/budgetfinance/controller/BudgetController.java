@@ -48,4 +48,11 @@ public class BudgetController {
         return ResponseEntity.ok(budgetService.getAllBudgetsByUser(userId));
     }
 
+    @PutMapping("/updateBudget")
+    public ResponseEntity<BudgetResponse> updateBudget(@RequestBody BudgetRequest budgetRequest) {
+        log.info("STARTED updateBudget");
+        return ResponseEntity.ok(budgetService.updateBudget(budgetRequest));
+    }
+
+
 }

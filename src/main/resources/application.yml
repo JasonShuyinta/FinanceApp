@@ -8,9 +8,3 @@ spring:
       username: neo4j
       password: password
     uri: bolt://localhost:7689
-logging:
-  level:
-    org:
-      springframework:
-        data:
-          neo4j: DEBUG

@@ -19,5 +19,6 @@ public class Expense {
     private double value;
     private String item;
     private String category;
+    private String issuer;
     private LocalDateTime createdAt;
 }

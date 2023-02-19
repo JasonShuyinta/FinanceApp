@@ -10,6 +10,7 @@ import com.dotjson.budgetfinance.entity.request.ExpenseRequest;
 import com.dotjson.budgetfinance.entity.response.BudgetResponse;
 import com.dotjson.budgetfinance.repository.BudgetRepository;
 import com.dotjson.budgetfinance.repository.UserRepository;
+import com.dotjson.budgetfinance.utils.ElementNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -52,7 +53,7 @@ public class BudgetService {
         Optional<Budget> optionalBudget = budgetRepository.findById(budgetId);
         if(optionalBudget.isEmpty()) {
             log.info("Could not find budget with id {}", budgetId);
-            return null;
+            throw new ElementNotFoundException("Could not find budget with id " + budgetId);
         }
         Budget budget = optionalBudget.get();
         return budgetMapper.budgetEntityToResponse(budget);
@@ -63,13 +64,14 @@ public class BudgetService {
         Optional<Budget> optionalBudget = budgetRepository.findById(budgetId);
         if(optionalBudget.isEmpty()) {
             log.info("Could not find budget with id {}", budgetId);
-            return null;
+            throw new ElementNotFoundException("Could not find budget with id " + budgetId);
         }
         Budget budget = optionalBudget.get();
         Expense expense = expenseMapper.expenseRequestToEntity(expenseRequest);
         expense.setId(String.valueOf(UUID.randomUUID()));
         expense.setCreatedAt(LocalDateTime.now());
         budget.hasA(expense);
+        budget.setTotal(budget.getTotal() - expense.getValue());
         Budget response = budgetRepository.save(budget);
         return budgetMapper.budgetEntityToResponse(response);
     }
@@ -82,5 +84,18 @@ public class BudgetService {
             budgetResponses.add(budgetMapper.budgetEntityToResponse(budget));
         }
         return budgetResponses;
+    }
+
+    public BudgetResponse updateBudget(BudgetRequest budgetRequest) {
+        log.info("START updateBudget");
+        Optional<Budget> opBudget = budgetRepository.findById(budgetRequest.getId());
+        if(opBudget.isEmpty()) {
+            log.info("Could not find budget with id {}", budgetRequest.getId());
+            throw new ElementNotFoundException("Could not find budget with id " + budgetRequest.getId());
+        }
+        Budget budget = opBudget.get();
+        budget.setTotal(budgetRequest.getTotal());
+        Budget response = budgetRepository.save(budget);
+        return budgetMapper.budgetEntityToResponse(response);
     }
 }

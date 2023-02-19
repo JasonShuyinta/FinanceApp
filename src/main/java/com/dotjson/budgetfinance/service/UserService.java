@@ -7,6 +7,7 @@ import com.dotjson.budgetfinance.entity.response.UserResponse;
 import com.dotjson.budgetfinance.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class UserService {
         Optional<User> opUser = userRepository.findById(userId);
         if(opUser.isEmpty()) {
             log.info("No user found with id {}", userId);
-            return null;
+            throw new UsernameNotFoundException("No user found with id " + userId);
         }
         User user = opUser.get();
         return userMapper.userEntityToResponse(user);
