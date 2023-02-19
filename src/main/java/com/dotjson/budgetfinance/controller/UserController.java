@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -29,5 +31,11 @@ public class UserController {
     public ResponseEntity<UserResponse> updateUser(@RequestBody UserRequest request) {
         log.info("START updateUser");
         return ResponseEntity.ok(userService.updateUser(request));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        log.info("START getAllUsers");
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 }

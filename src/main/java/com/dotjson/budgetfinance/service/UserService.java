@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,6 +36,16 @@ public class UserService {
         log.info("START updateUser with request {}", request.toString());
         User user = userRepository.save(userMapper.userRequestToEntity(request));
         return userMapper.userEntityToResponse(user);
+    }
+
+    public List<UserResponse> getAllUsers() {
+        log.info("START getAllUsers");
+        List<User> users = userRepository.findAll();
+        List<UserResponse> response = new ArrayList<>();
+        for (User user: users) {
+            response.add(userMapper.userEntityToResponse(user));
+        }
+        return response;
     }
 }
 
