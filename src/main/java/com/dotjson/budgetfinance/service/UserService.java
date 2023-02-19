@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.dotjson.budgetfinance.utils.Constants.USER_NOT_FOUND;
+import static com.dotjson.budgetfinance.utils.Constants.USER_NOT_FOUND_EXCEPTION;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -26,8 +29,8 @@ public class UserService {
         log.info("START getUserById");
         Optional<User> opUser = userRepository.findById(userId);
         if(opUser.isEmpty()) {
-            log.info("No user found with id {}", userId);
-            throw new UsernameNotFoundException("No user found with id " + userId);
+            log.info(USER_NOT_FOUND, userId);
+            throw new UsernameNotFoundException(USER_NOT_FOUND_EXCEPTION);
         }
         User user = opUser.get();
         return userMapper.userEntityToResponse(user);

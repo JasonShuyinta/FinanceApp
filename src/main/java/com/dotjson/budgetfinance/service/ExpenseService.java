@@ -5,7 +5,6 @@ import com.dotjson.budgetfinance.entity.Expense;
 import com.dotjson.budgetfinance.entity.mapper.ExpenseMapper;
 import com.dotjson.budgetfinance.entity.response.ExpenseResponse;
 import com.dotjson.budgetfinance.repository.BudgetRepository;
-import com.dotjson.budgetfinance.repository.ExpenseRepository;
 import com.dotjson.budgetfinance.utils.ElementNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import static com.dotjson.budgetfinance.utils.Constants.BUDGET_NOT_FOUND;
+import static com.dotjson.budgetfinance.utils.Constants.BUDGET_NOT_FOUND_EXCEPTION;
 
 @Service
 @Slf4j
@@ -28,8 +30,8 @@ public class ExpenseService {
         log.info("START getAllExpenses");
         Optional<Budget> opBudget = budgetRepository.findById(budgetId);
         if(opBudget.isEmpty()) {
-            log.info("Could not find budget with id {}", budgetId);
-            throw new ElementNotFoundException("could not find budget");
+            log.info(BUDGET_NOT_FOUND, budgetId);
+            throw new ElementNotFoundException(BUDGET_NOT_FOUND_EXCEPTION);
         }
         Set<Expense> expenseList = opBudget.get().getExpenses();
         List<ExpenseResponse> response = new ArrayList<>();

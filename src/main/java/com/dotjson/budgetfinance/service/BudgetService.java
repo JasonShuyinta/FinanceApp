@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.dotjson.budgetfinance.utils.Constants.*;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -36,8 +38,8 @@ public class BudgetService {
         log.info("START saveBudget with userId {}, request {}", userId, request.toString());
         Optional<User> opUser = userRepository.findById(userId);
         if(opUser.isEmpty()) {
-            log.info("Could not find user with id {}", userId);
-            throw new UsernameNotFoundException("Could not find user with id " + userId);
+            log.info(USER_NOT_FOUND, userId);
+            throw new UsernameNotFoundException(USER_NOT_FOUND_EXCEPTION);
         }
         User user = opUser.get();
         Budget budget = budgetMapper.budgetRequestToEntity(request);
@@ -52,8 +54,8 @@ public class BudgetService {
         log.info("START getBudget with id {}", budgetId);
         Optional<Budget> optionalBudget = budgetRepository.findById(budgetId);
         if(optionalBudget.isEmpty()) {
-            log.info("Could not find budget with id {}", budgetId);
-            throw new ElementNotFoundException("Could not find budget with id " + budgetId);
+            log.info(BUDGET_NOT_FOUND, budgetId);
+            throw new ElementNotFoundException(BUDGET_NOT_FOUND_EXCEPTION);
         }
         Budget budget = optionalBudget.get();
         return budgetMapper.budgetEntityToResponse(budget);
@@ -63,8 +65,8 @@ public class BudgetService {
         log.info("START addExpense with expenseRequest {}, budgetId {}", expenseRequest.toString(), budgetId);
         Optional<Budget> optionalBudget = budgetRepository.findById(budgetId);
         if(optionalBudget.isEmpty()) {
-            log.info("Could not find budget with id {}", budgetId);
-            throw new ElementNotFoundException("Could not find budget with id " + budgetId);
+            log.info(BUDGET_NOT_FOUND, budgetId);
+            throw new ElementNotFoundException(BUDGET_NOT_FOUND_EXCEPTION);
         }
         Budget budget = optionalBudget.get();
         Expense expense = expenseMapper.expenseRequestToEntity(expenseRequest);
@@ -90,8 +92,8 @@ public class BudgetService {
         log.info("START updateBudget");
         Optional<Budget> opBudget = budgetRepository.findById(budgetRequest.getId());
         if(opBudget.isEmpty()) {
-            log.info("Could not find budget with id {}", budgetRequest.getId());
-            throw new ElementNotFoundException("Could not find budget with id " + budgetRequest.getId());
+            log.info(BUDGET_NOT_FOUND, budgetRequest.getId());
+            throw new ElementNotFoundException(BUDGET_NOT_FOUND_EXCEPTION);
         }
         Budget budget = opBudget.get();
         budget.setTotal(budgetRequest.getTotal());

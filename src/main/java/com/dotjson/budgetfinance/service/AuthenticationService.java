@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+import static com.dotjson.budgetfinance.utils.Constants.USER_NOT_FOUND_EXCEPTION;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -40,7 +42,7 @@ public class AuthenticationService {
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         var user = userRepository.findByEmail(request.getEmail());
-        if(user == null) throw new UsernameNotFoundException("Coud not find user");
+        if(user == null) throw new UsernameNotFoundException(USER_NOT_FOUND_EXCEPTION);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
