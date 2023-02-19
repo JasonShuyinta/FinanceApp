@@ -1,11 +1,9 @@
 package com.dotjson.budgetfinance.controller;
 
-import com.dotjson.budgetfinance.entity.User;
-import com.dotjson.budgetfinance.entity.mapper.UserMapper;
 import com.dotjson.budgetfinance.entity.request.UserRequest;
 import com.dotjson.budgetfinance.entity.response.UserResponse;
-import com.dotjson.budgetfinance.repository.UserRepository;
 import com.dotjson.budgetfinance.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.dotjson.budgetfinance.utils.Constants.SWAGGER_AUTHORIZATION;
+
+@SecurityRequirement(name = SWAGGER_AUTHORIZATION)
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -22,8 +23,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<UserResponse> getUserById(@RequestParam Long userId) {
-        log.info("START getUSerById");
+    public ResponseEntity<UserResponse> getUserById(@RequestParam String userId) {
+        log.info("START getUserById");
         return ResponseEntity.ok(userService.getUserById(userId));
     }
 

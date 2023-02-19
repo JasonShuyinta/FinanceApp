@@ -5,12 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class BudgetResponse {
+@AllArgsConstructor
+public class ExpenseResponse {
 
     private String id;
-    private double total;
-    private String creationDate;
-    private String endDate;
+    private double value;
+    private String item;
+    private String category;
+    private String createdAt;
 }

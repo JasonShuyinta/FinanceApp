@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BudgetRequest {
+public class ExpenseRequest {
 
     private String id;
-    private double total;
-    private String creationDate;
-    private String endDate;
+    private double value;
+    private String item;
+    private String category;
+    private String createdAt;
 }

@@ -21,7 +21,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public UserResponse getUserById(Long userId) {
+    public UserResponse getUserById(String userId) {
         log.info("START getUserById");
         Optional<User> opUser = userRepository.findById(userId);
         if(opUser.isEmpty()) {

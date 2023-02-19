@@ -13,9 +13,7 @@ public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     @Mapping(target = "user.password", ignore = true)
-    @Mapping(target = "user.role", ignore = true)
     UserResponse userEntityToResponse(User user);
 
-    @Mapping(target = "user.role", defaultValue = "USER")
     User userRequestToEntity(UserRequest request);
 }
