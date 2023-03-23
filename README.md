@@ -63,6 +63,8 @@ interface, we are mapping from a User entity to a UserResponse entity, and from 
 
 Remember to always **mvn clean install** when creating or modifying one of these interfaces. 
 
+Remember also that as MapStruct uses Lombok annotations if you are using Lombok, that you need to include the mapstruct plugin after your lombok one on the pom.xml file.
+
 #### Swagger
 We used Swagger 3 for this project, and to do so you need to create a SwaggerConfig file and basically copy the
 boilerplate code there is. 
