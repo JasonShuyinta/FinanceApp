@@ -61,12 +61,12 @@ To import MapStruct in your project, add this dependency to your pom.xml:
 <dependency>
   <groupId>org.mapstruct</groupId>
   <artifactId>mapstruct</artifactId>
-  <version>${org.mapstruct.version}</version>
+  <version>1.5.3.Final</version>
 </dependency>
 <dependency>
-	<groupId>org.mapstruct</groupId>
-	<artifactId>mapstruct-processor</artifactId>
-	<version>${org.mapstruct.version}</version>
+  <groupId>org.mapstruct</groupId>
+  <artifactId>mapstruct-processor</artifactId>
+  <version>1.5.3.Final</version>
 </dependency>
 ```
 
