@@ -56,6 +56,20 @@ When passing data to and from your backend it is important that you hide useless
 that is why you need to use DTO's when transferring data. To do so I used this library I came across,
 named MapStruct. 
 
+To import MapStruct in your project, add this dependency to your pom.xml:
+```
+<dependency>
+  <groupId>org.mapstruct</groupId>
+  <artifactId>mapstruct</artifactId>
+  <version>${org.mapstruct.version}</version>
+</dependency>
+<dependency>
+	<groupId>org.mapstruct</groupId>
+	<artifactId>mapstruct-processor</artifactId>
+	<version>${org.mapstruct.version}</version>
+</dependency>
+```
+
 All you have to do is define an interface and annotate it with ***@Mapper(componentModel = "spring")***.
 It is important to use the componentModel attribute, because we need to compile the project so that MapStruct
 will create the mapper classes that will map from an object to another. In this case, take for instance the UserMapper
